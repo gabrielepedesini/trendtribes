@@ -26,6 +26,7 @@ html {
     --white: #ffffff; 
     --black: #131313; 
     --dark-gray: #3d3d3d;
+    --light-gray: #dadada;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
@@ -204,6 +205,7 @@ a {
     width: max-content;
     padding: 15px;
     padding-right: 15px;
+    padding-top: 10px;
     background-color: #ffffff;
     border-radius: 5px;
 }
@@ -477,6 +479,46 @@ a {
     background-color: #252525;
 }
 
+.mobile-shop-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.mobile-shop-btn a {
+    color: var(--black);
+    font-weight: 500;
+    padding: 8px 18px;
+    text-decoration: underline;
+    border-radius: 5px;
+    white-space: nowrap;
+    display: none;
+}
+
+.mobile-shop-btn a:hover {
+    color: var(--dark-gray);
+}
+
+@media (max-width: 550px) {
+    
+    .home-products a {
+        display: none;
+    }
+
+    .mobile-shop-btn a {
+        display: block;
+    }
+}
+
+/* ------------  MESSAGES  ------------- */
+
+.woocommerce-info {
+    border-top-color: var(--black) !important;
+}
+
+.woocommerce-info::before {
+    color: var(--black) !important;
+}
+
 /* ------------ SHOP  ------------- */
 
 .content-area {
@@ -485,6 +527,39 @@ a {
 
 .product {
     z-index: 0 !important;
+    margin-bottom: 40px !important;
+    position: relative !important;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.group .products-list {
+    width: calc(100% - 280px);
+}
+
+.group .products-filter {
+    width: 250px;
+}
+
+.woocommerce-breadcrumb {
+    font-size: 14px !important;
+    color: var(--dark-gray);
+}
+
+.woocommerce-result-count {
+    font-size: 14px !important;
+}
+
+.page-title {
+    font-size: 36px !important;
+}
+
+.woocommerce ul.products {
+    margin: 0 !important;
 }
 
 .onsale {
@@ -501,12 +576,101 @@ a {
     top: 5px !important;
     right: 5px !important;
     font-size: 12px !important;
+    width: min-content !important;
+}
+
+.single-product .onsale {
+    left: 1.5em !important;
+    top: 1.5em !important;
+}
+
+.related .onsale {
+    margin: 0 !important;
+    padding: 6px 10px !important;
+    border-radius: 5px !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    line-height: normal !important;
+    text-transform: uppercase;
+    background-color: var(--white) !important;
+    color: var(--black) !important;
+    border: 1px solid var(--black);
+    top: 5px !important;
+    right: 5px !important;
+    left: 5px !important;
+    font-size: 12px !important;
+    width: min-content !important;
 }
 
 .attachment-woocommerce_thumbnail {
     border-radius: 5px !important;
 }
 
+.price {
+    color: var(--black) !important;
+}
+
 .price > ins {
     text-decoration: none !important;
+}
+
+.add_to_cart_button {
+    background-color: var(--light-gray) !important;
+    color: var(--dark-gray) !important;
+    border-radius: 5px !important;
+    font-weight: 500 !important;
+    padding: 8px 14px !important;
+    font-size: 16px !important;
+    margin-top: 10px !important;
+}
+
+.add_to_cart_button:hover {
+    background-color: #c4c4c4 !important;
+    color: var(--dark-gray) !important;
+    border-radius: 5px !important;
+    font-weight: 500 !important;
+    padding: 8px 14px !important;
+    font-size: 16px !important;
+    margin-top: 10px !important;
+}
+
+.product-category {
+    margin-bottom: 0px !important;
+    border-bottom: 1px solid var(--light-gray);
+    padding: 15px 0 !important;
+    width: 100% !important;
+}
+
+.product-category a {
+    display: flex;
+    align-items: center;
+}
+
+.product-category a h2 {
+    text-align: center;
+    height: min-content;
+    
+}
+
+.product-category a img {
+    width: 50px !important;
+    margin-bottom: 0 !important;
+    margin-right: 10px !important;
+}
+
+/* ------------ CHECKOUT  ------------- */
+
+.wc-block-cart__submit-button {
+    color: var(--white);
+    font-weight: 500;
+    padding: 8px 18px;
+    background-color: var(--black);
+    border-radius: 5px;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 15px !important;
+}
+
+.wc-block-cart__submit-button:hover {
+    background-color: #252525;
 }

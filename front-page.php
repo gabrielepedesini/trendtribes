@@ -17,8 +17,12 @@
         echo do_shortcode('[products limit="8" orderby="popularity"]');
     ?>
 
+    <div class="mobile-shop-btn">
+        <a href="<?php echo esc_url(get_permalink(wc_get_page_id("shop"))); ?>">View All</a>
+    </div>
 
-    <!-- <?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
+
+    <?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
     
       <article>
 
@@ -30,6 +34,7 @@
              
           <h3><?php the_title(); ?></h3>
           <?php the_excerpt();?>    
+
         </a>
 
       </article>
@@ -38,7 +43,7 @@
       
     <?php else : ?>
       <p><?php esc_html_e('Sorry, no posts matched your criteria.', 'slug-theme'); ?></p>
-    <?php endif; ?> -->
+    <?php endif; ?>
 
 </main>
 
