@@ -117,9 +117,19 @@ get_header( 'shop' );
 
 		<div class="products-filter">
 
+			<h2 class="title-category">Popular Categories</h2>
+
 			<?php
 
 			echo do_shortcode('[product_categories number="0" parent="0" columns="1" orderby="name"]');
+
+			?>
+
+			<div style='height: 50px'></div>
+
+			<h2 class="title-category">Price Range</h2>
+
+			<?php
 
 			echo do_shortcode('[custom_price_filter]');
 
@@ -128,6 +138,8 @@ get_header( 'shop' );
 		</div>
 
 	</div>
+
+	<div style="height: 300px"></div>
 
 </main>
 

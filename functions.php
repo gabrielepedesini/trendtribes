@@ -159,21 +159,24 @@ function custom_price_filter_shortcode() {
         WHERE meta_key = '_price'
     " );
 
+    $max_price = ceil($max_price / 10) * 10;
+
     // Get the current selected price if available
     $current_price = isset($_GET['max_price']) ? $_GET['max_price'] : '';
     
-    if(!$current_price) {
+    if($current_price == null) {
         $current_price = $max_price;
     }
-    
 
     ob_start(); // Start output buffering
     ?>
 
     <form method="get" id="price-filter-form">
-        <label for="max_price">Price Range:</label>
         <input type="range" id="max_price" name="max_price" min="0" max="<?php echo $max_price; ?>" value="<?php echo $current_price; ?>" step="1" />
-        <output for="max_price" id="price-output"><?php echo $current_price ? $current_price : '0'; ?></output>
+        <div>
+            <span>0 <?php echo get_woocommerce_currency_symbol() ?></span>
+            <output for="max_price"><span id="price-output"><?php echo $current_price ?></span> <?php echo get_woocommerce_currency_symbol() ?></output>
+        </div>
     </form>
 
     <script>
