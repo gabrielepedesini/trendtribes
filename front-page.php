@@ -14,7 +14,7 @@
     </div>
 
     <?php
-        echo do_shortcode('[products limit="8" orderby="popularity"]');
+        echo do_shortcode('[products limit="4" orderby="popularity" columns="4"]');
     ?>
 
     <div class="mobile-shop-btn">
