@@ -360,4 +360,3 @@ function filter_products() {
 add_action('pre_get_posts', 'filter_products');
 
 ?>
-
