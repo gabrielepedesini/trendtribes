@@ -360,3 +360,240 @@ function filter_products() {
 add_action('pre_get_posts', 'filter_products');
 
 ?>
+
+
+<?php
+
+// custom text in 'added to cart' message
+
+// function quadlayers_add_to_cart_message_html( $message, $products ) {
+
+//     $count = 0;
+//     $titles = array();
+//     foreach ( $products as $product_id => $qty ) {
+//     $titles[] = ( $qty > 1 ? absint( $qty ) . ' &times; ' : '' ) . sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), strip_tags( get_the_title( $product_id ) ) );
+//     $count += $qty;
+//     }
+    
+//     $titles     = array_filter( $titles );
+//     $added_text = sprintf( _n(
+//     '%s has been added to your cart. Thank you for shopping!', // Singular
+//     '%s have been added to your cart. Thank you for shopping!', // Plural
+//     $count, // Number of products added
+//     'woocommerce' // Textdomain
+//     ), wc_format_list_of_items( $titles ) );
+//     $message    = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', esc_url( wc_get_page_permalink( 'cart' ) ), esc_html__( 'View cart', 'woocommerce' ), esc_html( $added_text ) );
+    
+//     return $message;
+// }
+
+// add_filter( 'wc_add_to_cart_message_html', 'quadlayers_add_to_cart_message_html', 10, 2 );
+
+?>
+
+<?php
+
+// custom quantity selector
+
+defined( 'ABSPATH' ) || exit(); 
+
+if ( ! class_exists( 'Rk_Plus_Minus' ) ) {
+
+    class Rk_Plus_Minus {
+
+        /**
+         * The instance variable of the class.
+         *
+         * @var $instance.
+         */
+        protected static $instance = null;
+
+        /**
+         * Constructor of this class.
+         */
+        public function __construct() {
+            add_action( 'woocommerce_after_quantity_input_field', array( $this, 'rk_display_quantity_plus' ) );
+            add_action( 'woocommerce_before_quantity_input_field', array( $this, 'rk_display_quantity_minus' ) );
+            add_action( 'wp_footer', array( $this, 'rk_add_cart_quantity_plus_minus' ) );
+        }
+
+        /**
+         * Display plus button after Add to Cart button.
+         */
+        public function rk_display_quantity_plus() {
+            echo '<button type="button" class="plus">+</button>';
+        }
+
+        /**
+         * Display minus button before Add to Cart button.
+         */
+        public function rk_display_quantity_minus() {
+            echo '<button type="button" class="minus">-</button>';
+        }
+
+        /**
+         * Enqueue script.
+         */
+        public function rk_add_cart_quantity_plus_minus() {
+
+            if ( ! is_product() && ! is_cart() ) {
+                return;
+            }
+
+            wc_enqueue_js(
+                "$(document).on( 'click', 'button.plus, button.minus', function() {
+
+                    var qty = $( this ).parent( '.quantity' ).find( '.qty' );
+                    var val = parseFloat(qty.val());
+                    var max = parseFloat(qty.attr( 'max' ));
+                    var min = parseFloat(qty.attr( 'min' ));
+                    var step = parseFloat(qty.attr( 'step' ));
+
+                    if ( $( this ).is( '.plus' ) ) {
+                        if ( max && ( max <= val ) ) {
+                        qty.val( max ).change();
+                        } else {
+                        qty.val( val + step ).change();
+                        }
+                    } else {
+                        if ( min && ( min >= val ) ) {
+                        qty.val( min ).change();
+                        } else if ( val > 1 ) {
+                        qty.val( val - step ).change();
+                        }
+                    }
+
+                });"
+            );
+        }
+
+        /**
+         * Instance of this class.
+         *
+         * @return object.
+         */
+        public static function get_instance() {
+            if ( is_null( self::$instance ) ) {
+                self::$instance = new self();
+            }
+
+            return self::$instance;
+        }
+    }
+}
+
+Rk_Plus_Minus::get_instance();
+
+?>
+
+<?php
+
+// create 'Type' attribute by default
+
+function custom_theme_add_custom_attribute() {
+    global $wpdb;
+
+    $attribute_name = 'Type';
+    $attribute_label = 'Type';
+    $attribute_type = 'text';
+    $attribute_default_value = ''; 
+
+    $attribute_id = wc_attribute_taxonomy_id_by_name('product_type');
+
+    if (!$attribute_id) {
+        
+        $attribute_id = wc_create_attribute([
+            'name' => $attribute_name,
+            'slug' => 'product_type',
+            'label' => $attribute_label,
+            'type' => $attribute_type,
+            'order_by' => 'menu_order',
+            'has_archives' => true,
+        ]);
+    }
+}
+
+add_action('after_setup_theme', 'custom_theme_add_custom_attribute');
+
+?>
+
+<?php
+
+// add custom meta box for sizing image upload in products
+
+function add_sizing_image_meta_box() {
+    add_meta_box(
+        'sizing_image_meta_box',
+        'Sizing image',
+        'render_sizing_image_meta_box',
+        'product',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'add_sizing_image_meta_box');
+
+// Render the content of the sizing image meta box
+// Render the content of the sizing image meta box
+function render_sizing_image_meta_box($post) {
+    wp_nonce_field(basename(__FILE__), 'sizing_image_meta_box_nonce');
+    $sizing_image_url = get_post_meta($post->ID, '_sizing_image', true);
+    ?>
+    <p>
+        <label for="sizing_image">Upload Size image:</label>
+        <input type="button" id="upload_sizing_image_button" class="button" value="Upload Image">
+        <input type="hidden" name="sizing_image" id="sizing_image" value="<?php echo $sizing_image_url; ?>">    
+        <br>
+        <br>
+        <img id="sizing_image_preview" src="<?php echo $sizing_image_url; ?>" style="max-width: 100%;" />
+        <br>
+        <br>
+        <p><span style="text-decoration: underline">To display this image in product page</span>: create an attribute called "Size Chart" and give it some text that will introduce the sizing image.</p>
+        <a id="delete_sizing_image_button" style="text-decoration: underline; color: #b32d2e; cursor: pointer">Delete Image</a>
+    </p>
+    <script>
+        jQuery(document).ready(function($) {
+            $('#upload_sizing_image_button').click(function(e) {
+                e.preventDefault();
+                var image = wp.media({
+                    title: 'Upload Sizing Image',
+                    multiple: false
+                }).open().on('select', function(e) {
+                    var uploaded_image = image.state().get('selection').first();
+                    var image_url = uploaded_image.toJSON().url;
+                    $('#sizing_image').val(image_url);
+                    $('#sizing_image_preview').attr('src', image_url).show();
+                    $('#delete_sizing_image_button').show();
+                });
+            });
+
+            $('#delete_sizing_image_button').click(function(e) {
+                e.preventDefault();
+                $('#sizing_image').val('');
+                $('#sizing_image_preview').attr('src', '').hide();
+                $(this).hide();
+            });
+        });
+    </script>
+    <?php
+}
+
+// Save the sizing image URL when the product is saved
+function save_sizing_image_meta_box($post_id) {
+    if (!isset($_POST['sizing_image_meta_box_nonce']) || !wp_verify_nonce($_POST['sizing_image_meta_box_nonce'], basename(__FILE__))) {
+        return $post_id;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return $post_id;
+    }
+
+    if ('product' === $_POST['post_type'] && current_user_can('edit_post', $post_id)) {
+        if (isset($_POST['sizing_image'])) {
+            update_post_meta($post_id, '_sizing_image', sanitize_text_field($_POST['sizing_image']));
+        }
+    }
+}
+add_action('save_post', 'save_sizing_image_meta_box');
+
+?>

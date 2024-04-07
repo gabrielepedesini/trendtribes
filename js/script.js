@@ -111,6 +111,17 @@ window.addEventListener("pageshow", function (event) {
     }
 });
 
+// accordion in product pages
+
+const accordions = document.querySelectorAll('.product-detail-title');
+
+accordions.forEach(el => {
+    el.addEventListener('click', () => {
+        const accordion = el.closest('.product-summary-accordion');
+        accordion.classList.toggle('open-accordion');
+    });
+});
+
 // show all categories in filters
 
 const containerCategories = document.querySelector('.container-categories');
@@ -186,19 +197,16 @@ window.addEventListener('load', function() {
 const removeFilters = document.querySelector('.remove-filters');
 
 function removeFiltersFromURL() {
-    // Get the current URL
+
     const url = window.location.href;
     const urlParts = url.split('?');
 
-    // If there's no query string or the query string has no filters, return
     if (urlParts.length < 2 || urlParts[1].trim() === '') {
         return;
     }
 
-    // Construct the new URL without the query string
     const newUrl = urlParts[0];
 
-    // Replace the current URL with the new URL without the query string
     history.replaceState(null, '', newUrl);
 
     location.reload();
@@ -207,3 +215,4 @@ function removeFiltersFromURL() {
 removeFilters.addEventListener('click', function() {
     removeFiltersFromURL();
 });
+

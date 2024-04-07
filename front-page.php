@@ -21,7 +21,6 @@
         <a href="<?php echo esc_url(get_permalink(wc_get_page_id("shop"))); ?>">View All</a>
     </div>
 
-
     <?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
     
       <article>

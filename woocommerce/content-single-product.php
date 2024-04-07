@@ -49,9 +49,57 @@ if ( post_password_required() ) {
 		woocommerce_template_single_title();
 		woocommerce_template_single_rating();
 		woocommerce_template_single_price();
+
+		?>
+		
+		<div class="free-shipping">
+			<img style="height: 13px" src="<?php echo get_template_directory_uri(); ?>/img/shipping.svg" alt="">
+			<span style="font-size: 14px">Free shipping </span>
+		</div>
+
+		<?php
+
 		woocommerce_template_single_add_to_cart();
-		woocommerce_template_single_meta();
-		echo $product->get_description();
+		// woocommerce_template_single_meta();
+
+		?>
+
+		<div class="desc">
+			<?php echo $product->get_description(); ?>
+		</div>
+		
+		<?php
+
+		$product_attributes = $product->get_attributes();
+		$firstAccordion = true;
+
+		foreach ($product_attributes as $attribute) {
+
+			if ($attribute->get_visible()) {
+				
+				if ($firstAccordion) {
+					echo '<div class="product-summary-accordion" style="border-top: 1px solid var(--light-gray)">';
+					$firstAccordion = false;
+				} else {
+					echo '<div class="product-summary-accordion">';
+				}
+				echo '<div class="product-detail-title">';
+				echo '<h3>' . $attribute->get_name() . '</h3> ';
+				echo '<img src="' . get_template_directory_uri() . '/img/down-arrow.svg">';
+				echo '</div>';
+				echo '<div class="accordion-desc">' . implode($attribute->get_options()) . '</div>';
+
+				if($attribute->get_name() == 'Size Chart') {
+					$sizing_image_url = get_post_meta(get_the_ID(), '_sizing_image', true);
+					if (!empty($sizing_image_url)) {
+						echo '<img src="' . esc_url($sizing_image_url) . '" alt="Sizing Image" style="max-width: 100%;">';
+					}
+				}
+
+				echo '</div>';
+			}
+		}
+		
 		woocommerce_template_single_sharing();
 
 
