@@ -160,8 +160,6 @@ get_header( 'shop' );
 	woocommerce_pagination()
 	?>
 
-	<div style="height: 300px"></div>
-
 </main>
 
 <?php

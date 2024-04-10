@@ -78,12 +78,19 @@ add_action( 'wp_enqueue_scripts', 'nakedpress_styles' );
 
 function nakedpress_scripts() {
     
-    wp_enqueue_script( 'slug-theme-script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ),'', true );
+    wp_enqueue_script( 'slug-theme-script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ), '', true );
     if ( is_singular() && get_option( 'thread_comments' ) )  { wp_enqueue_script( 'comment-reply' ); }
     
     // Enqueue jQuery
     wp_enqueue_script('jquery');
+
+    if ( is_page( 'shop' ) ) {
+        wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
+    };
     
+    wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
+    wp_enqueue_script( 'product-script', get_template_directory_uri() . '/js/product.js', array(), '', true );
+    wp_enqueue_script( 'myaccount-script', get_template_directory_uri() . '/js/myaccount.js', array(), '', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'nakedpress_scripts' );
@@ -305,8 +312,6 @@ function generate_type_filters() {
         wp_reset_postdata();
     }
 }
-
-
 
 // Function to filter products based on selected checkboxes and price range
 function filter_products() {
@@ -595,5 +600,74 @@ function save_sizing_image_meta_box($post_id) {
     }
 }
 add_action('save_post', 'save_sizing_image_meta_box');
+
+?>
+
+<?php
+
+// change review title for 'no reviews'
+
+add_filter('woocommerce_product_review_comment_form_args', 'change_review_title');
+
+function change_review_title($args) {
+    $args['title_reply'] = 'Add a review';
+    return $args;
+}
+
+?>
+
+<?php
+
+// separated login and register page
+
+// add_shortcode( 'wc_reg_form_bbloomer', 'bbloomer_separate_registration_form' );
+     
+// function bbloomer_separate_registration_form() {
+//    if ( is_user_logged_in() ) return '<p>You are already registered</p>';
+//    ob_start();
+//    do_action( 'woocommerce_before_customer_login_form' );
+//    $html = wc_get_template_html( 'myaccount/form-login.php' );
+//    $dom = new DOMDocument();
+//    $dom->encoding = 'utf-8';
+//    $dom->loadHTML( utf8_decode( $html ) );
+//    $xpath = new DOMXPath( $dom );
+//    $form = $xpath->query( '//form[contains(@class,"register")]' );
+//    $form = $form->item( 0 );
+//    echo $dom->saveXML( $form );
+//    return ob_get_clean();
+// }
+
+// add_shortcode( 'wc_login_form_bbloomer', 'bbloomer_separate_login_form' );
+  
+// function bbloomer_separate_login_form() {
+//    if ( is_user_logged_in() ) return '<p>You are already logged in</p>'; 
+//    ob_start();
+//    do_action( 'woocommerce_before_customer_login_form' );
+//    woocommerce_login_form( array( 'redirect' => wc_get_page_permalink( 'myaccount' ) ) );
+//    return ob_get_clean();
+// }
+
+// add_action( 'template_redirect', 'bbloomer_redirect_login_registration_if_logged_in' );
+ 
+// function bbloomer_redirect_login_registration_if_logged_in() {
+//     if ( is_page() && is_user_logged_in() && ( has_shortcode( get_the_content(), 'wc_login_form_bbloomer' ) || has_shortcode( get_the_content(), 'wc_reg_form_bbloomer' ) ) ) {
+//         wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
+//         exit;
+//     }
+// }
+
+// add_action( 'template_redirect', 'bbloomer_redirect_to_login_if_myaccount' );
+
+// function bbloomer_redirect_to_login_if_myaccount() {
+
+//     $current_url_path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+    
+//     $myaccount_page_slug = basename( get_permalink( wc_get_page_id( 'myaccount' ) ) );
+
+//     if ( trim( $current_url_path, '/' ) === $myaccount_page_slug && ! is_user_logged_in() ) {
+//         wp_safe_redirect( home_url( '/login' ) );
+//         exit;
+//     }
+// }
 
 ?>

@@ -132,7 +132,6 @@ if ( post_password_required() ) {
 // do_action( 'woocommerce_after_single_product_summary' );
 
 if ( comments_open() ) {
-	// Display the reviews section
 	comments_template();
 }
 
