@@ -3,8 +3,29 @@
 <main class="container">
 
     <div class="hero" style="background-image: url(' <?php echo esc_url(get_header_image()) ?> ');">
-        <h1>Explore the Latest Trends</h1>
-        <p>Join the Movement & Express Yourself</p>
+        <h1><?php echo get_theme_mod( 'hero_title' ) ?></h1>
+
+        <?php
+
+        // $discount_show = get_theme_mod( 'discount_show_button' );
+        // $discount_date = get_theme_mod( 'discount_date' );
+        
+
+        // if ( $discount_show && empty($discount_date) ) {
+        //     echo '<p class="hero-subtitle hero-counter">Sales end in <span class="display-counter"></span></p>';
+        // } else if ( !$discount_show && !empty($discount_date) ) {
+        //     echo '<p class="hero-subtitle hero-counter date">Sales end in <span class="display-counter">' . $discount_date . '</span></p>';
+        // }
+
+        $hero_sub = get_theme_mod( 'hero_subtitle' );
+
+        if ( !empty($hero_sub) ) {
+            echo '<p class="hero-subtitle">' . $hero_sub . '</p>';
+        }
+
+        ?>
+
+
         <a href="<?php echo esc_url(get_permalink(wc_get_page_id("shop"))); ?>">Shop Now</a>
     </div>
 

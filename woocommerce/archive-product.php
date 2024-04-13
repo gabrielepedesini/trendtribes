@@ -135,10 +135,29 @@ get_header( 'shop' );
 			<div class='container-categories'>
 
 				<?php
-				echo do_shortcode('[product_categories number="0" parent="0" columns="1" orderby="popularity"]');
+				echo do_shortcode('[product_categories number="0" parent="0" columns="1" orderby="count" order="DESC"]');
 				?>
 
 			</div>
+
+			<?php
+			$args = array(
+				'taxonomy'     => 'product_cat',
+				'hide_empty'   => false,
+			);
+
+			$categories = get_categories( $args );
+			$count = 0;
+
+			foreach ( $categories as $category ) {
+				$product_count = $category->count;
+				if ( $product_count > 0 ) {
+					$count++;
+				}
+			} 
+			 
+			echo '<div class="categories-number" style="display: none">' . $count . '</div>'
+			?>
 
 			<div class="btn-show-categories-container">
 				<a class="btn-show-categories">View All</a>

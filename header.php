@@ -12,6 +12,29 @@
 
     <header class="header">
 
+
+
+
+
+        <?php
+
+        $discount_show = get_theme_mod( 'discount_show_button' );
+        $discount_date = get_theme_mod( 'discount_date' );
+
+        if ( $discount_show && empty($discount_date) ) {
+            echo '<p class="header-sale header-counter">Sales end in <span class="display-counter"></span></p>';
+        } else if ( !$discount_show && !empty($discount_date) ) {
+            echo '<p class="header-sale header-counter date">Sales end in <span class="display-counter">' . $discount_date . '</span></p>';
+        } else {
+            echo '<p class="header-sale"></p>';
+        }
+
+        ?>
+
+
+
+
+
         <div class="header-wrapper container">
 
             <a class="hamburger">
@@ -32,11 +55,19 @@
                 ));
                 ?>    
 
+                <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) ?>" class="user-icon-mobile">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/user.svg" alt="">
+                    <span>My Account</span>
+                </a>
+
             </nav>
 
             <?php echo get_custom_logo(); ?>
 
             <div class="utilities">
+                <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) ?>" class="user-icon">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/user.svg" alt="">
+                </a>
                 <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-icon">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/cart.svg" alt="cart">
                     <span class="cart-item-count hidden"></span>
@@ -49,7 +80,7 @@
 
     </header>
 
-    <div style="height: 100px"></div>
+    <div class="header-spacer"></div>
 
     <?php if (is_home()) { ?>
     

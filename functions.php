@@ -87,7 +87,8 @@ function nakedpress_scripts() {
     if ( is_page( 'shop' ) ) {
         wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
     };
-    
+
+    wp_enqueue_script( 'home-script', get_template_directory_uri() . '/js/home.js', array(), '', true );  
     wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
     wp_enqueue_script( 'product-script', get_template_directory_uri() . '/js/product.js', array(), '', true );
     wp_enqueue_script( 'myaccount-script', get_template_directory_uri() . '/js/myaccount.js', array(), '', true );
@@ -616,58 +617,172 @@ function change_review_title($args) {
 
 ?>
 
+<?php 
+
+// custom sections in admin panel
+
+if (is_customize_preview()) {
+    class Custom_Hero_Text_Control extends WP_Customize_Control {
+        public $type = 'custom_hero_text';
+
+        public function render_content() {
+            ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                <input type="text" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?>>
+            </label>
+            <?php
+        }
+    }
+
+    class Custom_Hero_Checkbox_Control extends WP_Customize_Control {
+        public $type = 'custom_hero_checkbox';
+
+        public function render_content() {
+            ?>
+            <label>
+                <input type="checkbox" value="1" <?php checked( $this->value() ); ?> <?php $this->link(); ?>>
+                <?php echo esc_html( $this->label ); ?>
+            </label>
+            <?php
+        }
+    }
+
+    class Custom_Hero_Date_Control extends WP_Customize_Control {
+        public $type = 'custom_discount_date';
+
+        public function render_content() {
+            ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                <input type="date" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?>>
+            </label>
+            <?php
+        }
+    }
+}
+
+
+function custom_theme_customizer( $wp_customize ) {
+    // Add Homepage Content section
+    $wp_customize->add_section( 'custom_homepage', array(
+        'title'    => __( 'Homepage Content', 'custom-theme' ),
+        'priority' => 30,
+    ) );
+
+    // Add Hero Title setting and control
+    $wp_customize->add_setting( 'hero_title', array(
+        'default' => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( new Custom_Hero_Text_Control( $wp_customize, 'hero_title', array(
+        'label'   => __( 'Hero Title', 'custom-theme' ),
+        'section' => 'custom_homepage',
+        'settings' => 'hero_title',
+    ) ) );
+
+    // Add Hero Subtitle setting and control
+    $wp_customize->add_setting( 'hero_subtitle', array(
+        'default' => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( new Custom_Hero_Text_Control( $wp_customize, 'hero_subtitle', array(
+        'label'   => __( 'Hero Subtitle', 'custom-theme' ),
+        'section' => 'custom_homepage',
+        'settings' => 'hero_subtitle',
+    ) ) );
+
+    // Add Sales section
+    $wp_customize->add_section( 'custom_sales', array(
+        'title'    => __( 'Sales', 'custom-theme' ),
+        'priority' => 35,
+    ) );
+
+    // Add Discount End Date setting and control to Sales section
+    $wp_customize->add_setting( 'discount_date', array(
+        'default' => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( new Custom_Hero_Date_Control( $wp_customize, 'discount_date', array(
+        'label'   => __( 'Discount End Date', 'custom-theme' ),
+        'section' => 'custom_sales',
+        'settings' => 'discount_date',
+    ) ) );
+
+    // Add Discount Show Button setting and control to Sales section
+    $wp_customize->add_setting( 'discount_show_button', array(
+        'default' => false,
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( new Custom_Hero_Checkbox_Control( $wp_customize, 'discount_show_button', array(
+        'label'   => __( 'Everyday Reset Counter', 'custom-theme' ),
+        'section' => 'custom_sales',
+        'settings' => 'discount_show_button',
+    ) ) );
+}
+
+add_action( 'customize_register', 'custom_theme_customizer' );
+
+?>
+
 <?php
 
-// separated login and register page
+// create "On Sale" category
 
-// add_shortcode( 'wc_reg_form_bbloomer', 'bbloomer_separate_registration_form' );
-     
-// function bbloomer_separate_registration_form() {
-//    if ( is_user_logged_in() ) return '<p>You are already registered</p>';
-//    ob_start();
-//    do_action( 'woocommerce_before_customer_login_form' );
-//    $html = wc_get_template_html( 'myaccount/form-login.php' );
-//    $dom = new DOMDocument();
-//    $dom->encoding = 'utf-8';
-//    $dom->loadHTML( utf8_decode( $html ) );
-//    $xpath = new DOMXPath( $dom );
-//    $form = $xpath->query( '//form[contains(@class,"register")]' );
-//    $form = $form->item( 0 );
-//    echo $dom->saveXML( $form );
-//    return ob_get_clean();
-// }
+function create_on_sale_category() {
+    $term = wp_insert_term(
+        'On Sale', 
+        'product_cat', 
+        array(
+            'description' => 'Products currently on sale',
+        )
+    );
+}
+add_action('init', 'create_on_sale_category');
 
-// add_shortcode( 'wc_login_form_bbloomer', 'bbloomer_separate_login_form' );
-  
-// function bbloomer_separate_login_form() {
-//    if ( is_user_logged_in() ) return '<p>You are already logged in</p>'; 
-//    ob_start();
-//    do_action( 'woocommerce_before_customer_login_form' );
-//    woocommerce_login_form( array( 'redirect' => wc_get_page_permalink( 'myaccount' ) ) );
-//    return ob_get_clean();
-// }
+function assign_products_to_on_sale_category() {
+    $on_sale_products = wc_get_product_ids_on_sale();
 
-// add_action( 'template_redirect', 'bbloomer_redirect_login_registration_if_logged_in' );
- 
-// function bbloomer_redirect_login_registration_if_logged_in() {
-//     if ( is_page() && is_user_logged_in() && ( has_shortcode( get_the_content(), 'wc_login_form_bbloomer' ) || has_shortcode( get_the_content(), 'wc_reg_form_bbloomer' ) ) ) {
-//         wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
-//         exit;
-//     }
-// }
+    foreach ($on_sale_products as $product_id) {
+        wp_set_object_terms($product_id, 'on-sale', 'product_cat', true); 
+    }
+}
+add_action('init', 'assign_products_to_on_sale_category');
 
-// add_action( 'template_redirect', 'bbloomer_redirect_to_login_if_myaccount' );
+function assign_variable_products_to_on_sale_category() {
+    $variable_products = new WP_Query(array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+        'meta_query' => array(
+            array(
+                'key' => '_is_variable',
+                'value' => 'yes',
+            )
+        )
+    ));
 
-// function bbloomer_redirect_to_login_if_myaccount() {
+    if ($variable_products->have_posts()) {
+        while ($variable_products->have_posts()) {
+            $variable_products->the_post();
+            $product = wc_get_product(get_the_ID());
 
-//     $current_url_path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-    
-//     $myaccount_page_slug = basename( get_permalink( wc_get_page_id( 'myaccount' ) ) );
+            if ($product->is_on_sale()) {
+                wp_set_object_terms(get_the_ID(), 'on-sale', 'product_cat', true);
+            }
+        }
+        wp_reset_postdata();
+    }
+}
+add_action('init', 'assign_variable_products_to_on_sale_category');
 
-//     if ( trim( $current_url_path, '/' ) === $myaccount_page_slug && ! is_user_logged_in() ) {
-//         wp_safe_redirect( home_url( '/login' ) );
-//         exit;
-//     }
-// }
+function update_on_sale_category_on_product_save($product) {
+    if ($product->is_on_sale()) {
+        wp_set_object_terms($product->get_id(), 'on-sale', 'product_cat', true);
+    } else {
+        wp_remove_object_terms($product->get_id(), 'on-sale', 'product_cat');
+    }
+}
+add_action('woocommerce_before_product_object_save', 'update_on_sale_category_on_product_save');
 
 ?>

@@ -2,7 +2,12 @@
 
 const containerCategories = document.querySelector('.container-categories');
 const btnCategories = document.querySelector('.btn-show-categories');
+const categoriesNumber = document.querySelector('.categories-number');
 let btnCategoriesStatus = true;
+
+if(parseInt(categoriesNumber.textContent) <= 3) {
+    btnCategories.classList.add('hide');
+}
 
 btnCategories.addEventListener('click', () => {
     if(btnCategoriesStatus) {
