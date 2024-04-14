@@ -65,6 +65,8 @@ add_action( 'after_setup_theme', 'nakedpress_setup' );
 function nakedpress_styles() {
     
     wp_enqueue_style( 'slug-theme-style', get_template_directory_uri().'/style.css');
+
+    wp_enqueue_style( 'swiper-style', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
     
 }
 
@@ -81,12 +83,13 @@ function nakedpress_scripts() {
     wp_enqueue_script( 'slug-theme-script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ), '', true );
     if ( is_singular() && get_option( 'thread_comments' ) )  { wp_enqueue_script( 'comment-reply' ); }
     
-    // Enqueue jQuery
     wp_enqueue_script('jquery');
 
     if ( is_page( 'shop' ) ) {
         wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
     };
+
+    wp_enqueue_script('swiper-script', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '', true);
 
     wp_enqueue_script( 'home-script', get_template_directory_uri() . '/js/home.js', array(), '', true );  
     wp_enqueue_script( 'shop-script', get_template_directory_uri() . '/js/shop.js', array(), '', true );
@@ -219,8 +222,6 @@ function custom_filter_shortcode() {
 
         <?php generate_type_filters(); ?>
 
-        <div style="height: 15px;"></div>
-
         <input type="range" id="max_price" name="max_price" min="0" max="<?php echo $max_price; ?>" value="<?php echo $current_price; ?>" step="1" />
         <div class="price-range-numbers">
             <span>0 <?php echo get_woocommerce_currency_symbol() ?></span>
@@ -301,7 +302,7 @@ function generate_type_filters() {
         // Display checkboxes for each unique product type
         $product_types = array_unique($product_types);
         if (!empty($product_types)) {
-            echo '<div>';
+            echo '<div class="type-filters">';
             foreach ($product_types as $type) {
                 $checked = isset($_GET['type_filter']) && in_array($type, $_GET['type_filter']) ? 'checked' : '';
                 echo '<label class="type-input-box"><input type="checkbox" name="type_filter[]" value="' . esc_attr($type) . '" ' . $checked . '> ' . esc_html($type) . '</label><br>';

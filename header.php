@@ -12,10 +12,6 @@
 
     <header class="header">
 
-
-
-
-
         <?php
 
         $discount_show = get_theme_mod( 'discount_show_button' );
@@ -30,10 +26,6 @@
         }
 
         ?>
-
-
-
-
 
         <div class="header-wrapper container">
 
