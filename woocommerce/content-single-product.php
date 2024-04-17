@@ -52,10 +52,10 @@ if ( post_password_required() ) {
 
 		?>
 		
-		<div class="free-shipping">
+		<!-- <div class="free-shipping" style="display: none">
 			<img style="height: 13px" src="<?php echo get_template_directory_uri(); ?>/img/shipping.svg" alt="">
 			<span style="font-size: 14px">Free shipping </span>
-		</div>
+		</div> -->
 
 		<?php
 

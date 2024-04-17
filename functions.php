@@ -16,6 +16,9 @@ function nakedpress_setup() {
     // Enable custom header
     add_theme_support( 'custom-header' );
 
+    // Enable custom footer
+    add_theme_support( 'custom-footer' );
+
     // Enable custom logo
     add_theme_support( 'custom-logo' );
 
@@ -31,7 +34,8 @@ function nakedpress_setup() {
 
     // Custom menu areas
     register_nav_menus( array(
-        'header' => esc_html__( 'Header', 'slug-theme' )
+        'header' => esc_html__( 'Header', 'slug-theme' ),
+        'footer' => esc_html__( 'Footer', 'slug-theme' )
     ) );
 
     // Load theme languages
@@ -77,7 +81,6 @@ add_action( 'wp_enqueue_scripts', 'nakedpress_styles' );
 
 // enqueue javascript
 
-
 function nakedpress_scripts() {
     
     wp_enqueue_script( 'slug-theme-script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ), '', true );
@@ -98,6 +101,7 @@ function nakedpress_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'nakedpress_scripts' );
+
 ?>
 
 <?php
@@ -785,5 +789,15 @@ function update_on_sale_category_on_product_save($product) {
     }
 }
 add_action('woocommerce_before_product_object_save', 'update_on_sale_category_on_product_save');
+
+?>
+
+
+<?php
+
+function change_empty_cart_message() {
+    return 'Your custom message goes here.';
+}
+add_filter( 'wc_empty_cart_message', 'change_empty_cart_message' );
 
 ?>

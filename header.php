@@ -41,11 +41,11 @@
 
                 <?php
                 wp_nav_menu(array(
-                'theme_location' => 'header',
-                'container' => false,
-                'items_wrap' => '<ul>%3$s</ul>'
+                    'theme_location' => 'header',
+                    'container' => false,
+                    'items_wrap' => '<ul>%3$s</ul>'
                 ));
-                ?>    
+                ?> 
 
                 <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) ?>" class="user-icon-mobile">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/user.svg" alt="">

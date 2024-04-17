@@ -1,15 +1,36 @@
     <footer class="footer">
 
-    <div style="margin-bottom: 15px">
-        <?php bloginfo('title'); ?> - <a href="/privacy-policy">Privacy Policy</a>
-    </div>
+        <div class="container">
 
-    <div>
-        <form class="search-form" role="search" method="get" action="<?php echo home_url(); ?>">
-        <input  type="text" placeholder="<?php esc_html_e('Search', 'slug-theme'); ?>" name="s">
-        <button type="submit">Search</button>
-        </form>
-    </div>
+            <div class="footer-menu">
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'footer',
+                    'container' => false,
+                    'items_wrap' => '<ul>%3$s</ul>'
+                ));
+                ?> 
+            </div>
+
+            <div class="footer-company">
+                
+                <div class="info">
+                    © <?php echo date('Y'); ?> <?php bloginfo('title'); ?> <span class="divider"></span> <span class="date"></span> 
+                </div>  
+
+                <div class="payments">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/amex.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/applepay.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/googlepay.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/maestro.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/mastercard.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/paypal.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/payments/visa.svg" alt="">
+                </div>
+            </div>   
+
+        </div>
+    
     </footer>
 
     <?php wp_footer(); ?>

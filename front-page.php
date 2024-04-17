@@ -33,7 +33,29 @@
         echo do_shortcode('[products limit="4" orderby="popularity" columns="4"]');
     ?>
 
-    <div style="height: 60px"></div>
+    <div style="height: 80px"></div>
+
+    <div class="shop-values">
+        <div>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/shield-check.svg" alt="">
+            <h2>Secure Payments</h2>
+            <p>SSL Payments for your protection</p>
+        </div>
+
+        <div>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/cart-shopping-fast.svg" alt="">
+            <h2>Express Shipping</h2>
+            <p>Fast and Reliable delivery only</p>
+        </div>
+
+        <div>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/headphones.svg" alt="">
+            <h2>Customer Support</h2>
+            <p>24/7 ready to help you</p>
+        </div>
+    </div>
+
+    <div style="height: 100px"></div>
 
     <div class="swiper-container">
 
@@ -115,30 +137,6 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-
-
-    <?php if (have_posts()) :?><?php while(have_posts()) : the_post(); ?>
-    
-      <article>
-
-        <a href="<?php the_permalink(); ?>">
-
-          <div class="post-img">
-            <?php the_post_thumbnail('large', array('class' => 'img-res','alt' => get_the_title())); ?>
-          </div>
-             
-          <h3><?php the_title(); ?></h3>
-          <?php the_excerpt();?>    
-
-        </a>
-
-      </article>
-    
-    <?php endwhile; ?>
-      
-    <?php else : ?>
-      <p><?php esc_html_e('Sorry, no posts matched your criteria.', 'slug-theme'); ?></p>
-    <?php endif; ?>
 
 </main>
 
