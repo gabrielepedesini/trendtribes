@@ -1,24 +1,34 @@
 // show all categories in filters
 
-const containerCategories = document.querySelector('.container-categories');
-const btnCategories = document.querySelector('.btn-show-categories');
-const categoriesNumber = document.querySelector('.categories-number');
-let btnCategoriesStatus = true;
-
-if(parseInt(categoriesNumber.textContent) <= 3) {
-    btnCategories.classList.add('hide');
-}
-
-btnCategories.addEventListener('click', () => {
-    if(btnCategoriesStatus) {
-        containerCategories.classList.add('show-categories');
-        btnCategories.textContent = 'Close';
-        btnCategoriesStatus = false;
-    } else {
-        containerCategories.classList.remove('show-categories');
-        btnCategories.textContent = 'View All';
-        btnCategoriesStatus = true;
+document.addEventListener("DOMContentLoaded", function() {
+    let categories = document.querySelectorAll('.product-category');
+    const toggleButton = document.querySelector('.btn-show-categories');
+  
+    function hideCategories() {
+        for (var i = 3; i < categories.length; i++) {
+            categories[i].style.display = 'none';
+        }
+        toggleButton.textContent = 'View All';
     }
+  
+    function showAllCategories() {
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'block';
+        }
+        toggleButton.textContent = 'Close';
+    }
+  
+    hideCategories();
+  
+    toggleButton.addEventListener('click', function() {
+        var isHidden = categories[3].style.display === 'none';
+    
+        if (isHidden) {
+            showAllCategories();
+        } else {
+            hideCategories();
+        }
+    });
 });
 
 // filters on mobile 

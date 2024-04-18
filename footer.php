@@ -3,13 +3,44 @@
         <div class="container">
 
             <div class="footer-menu">
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'footer',
-                    'container' => false,
-                    'items_wrap' => '<ul>%3$s</ul>'
-                ));
-                ?> 
+
+                <div>
+                    <h3>Sitemap</h3>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer',
+                        'container' => false,
+                        'items_wrap' => '<ul>%3$s</ul>'
+                    ));
+                    ?> 
+                </div>
+                
+                <div>
+                    <h3>Policies</h3>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'policies',
+                        'container' => false,
+                        'items_wrap' => '<ul>%3$s</ul>'
+                    ));
+                    ?> 
+                </div>
+
+                <div>
+                    <h3>Socials</h3>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'socials',
+                        'container' => false,
+                        'items_wrap' => '<ul>%3$s</ul>'
+                    ));
+                    ?> 
+                </div>
+
+                <div>
+                    <h3>Language</h3>
+                    <div class="language"></div>
+                </div>
             </div>
 
             <div class="footer-company">

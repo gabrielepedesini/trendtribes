@@ -35,7 +35,9 @@ function nakedpress_setup() {
     // Custom menu areas
     register_nav_menus( array(
         'header' => esc_html__( 'Header', 'slug-theme' ),
-        'footer' => esc_html__( 'Footer', 'slug-theme' )
+        'footer' => esc_html__( 'Footer', 'slug-theme' ),
+        'policies' => esc_html__( 'Policies', 'slug-theme' ),
+        'socials' => esc_html__( 'Socials', 'slug-theme' ),
     ) );
 
     // Load theme languages
@@ -101,6 +103,27 @@ function nakedpress_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'nakedpress_scripts' );
+
+?>
+
+<?php
+
+// add page slugs to body class
+
+function add_page_slug_to_body_class( $classes ) {
+    global $post;
+    
+    if ( is_singular() && $post ) {
+
+        $slug = $post->post_name;
+        
+        $classes[] = $slug;
+    }
+
+    return $classes;
+}
+
+add_filter( 'body_class', 'add_page_slug_to_body_class' );
 
 ?>
 
