@@ -149,6 +149,29 @@ add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
 ?>
 
+<?php
+
+// custom breadcrumb for posts
+
+function custom_breadcrumbs() {
+    echo '<div class="breadcrumbs">';
+
+    echo '<a href="' . esc_url(home_url('/')) . '">' . __('Home', 'text-domain') . '</a>';
+
+    echo '<span class="separator"> / </span>';
+
+    echo '<a href="' . esc_url(get_permalink(get_option('page_for_posts'))) . '">' . __('Blog', 'text-domain') . '</a>';
+
+    echo '<span class="separator"> / </span>';
+
+    echo '<span class="current">' . get_the_title() . '</span>';
+
+    echo '</div>';
+}
+
+
+?>
+
 <?php 
 
 // update cart by ajax call

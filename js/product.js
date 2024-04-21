@@ -9,18 +9,28 @@ accordions.forEach(el => {
     });
 });
 
-// review hide/show list
+// hide/show review list
 
 document.addEventListener("DOMContentLoaded", function() {
-
     var reviews = document.getElementsByClassName('review');
-
     var showAllButton = document.createElement('a');
     showAllButton.textContent = 'View All';
     showAllButton.classList.add('show-all-reviews-btn');
 
-    for (var i = 3; i < reviews.length; i++) {
-        reviews[i].style.display = 'none';
+    function endsWithCommentNumber() {
+        var url = window.location.href;
+        return /#comment-\d+$/.test(url);
+    }
+
+    if (endsWithCommentNumber()) {
+        for (var i = 0; i < reviews.length; i++) {
+            reviews[i].style.display = '';
+        }
+        showAllButton.textContent = 'Close';
+    } else {
+        for (var i = 3; i < reviews.length; i++) {
+            reviews[i].style.display = 'none';
+        }
     }
 
     var buttonContainer = document.createElement('div');
