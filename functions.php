@@ -151,6 +151,17 @@ add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
 <?php
 
+// custom "read more" text for blog post
+
+function custom_excerpt_more($more) {
+    return __('<span class="read-more"> (continue...)</span>', 'your-text-domain');
+}
+add_filter('excerpt_more', 'custom_excerpt_more');
+
+?>
+
+<?php
+
 // custom breadcrumb for posts
 
 function custom_breadcrumbs() {
@@ -841,9 +852,10 @@ add_action('woocommerce_before_product_object_save', 'update_on_sale_category_on
 
 <?php
 
-function change_empty_cart_message() {
-    return 'Your custom message goes here.';
+function my_custom_content_after_checkout_button() {
+    echo '<div class="my-custom-content">Your additional content goes here.</div>';
 }
-add_filter( 'wc_empty_cart_message', 'change_empty_cart_message' );
+
+add_action( 'woocommerce_after_cart_totals', 'my_custom_content_after_checkout_button' );
 
 ?>

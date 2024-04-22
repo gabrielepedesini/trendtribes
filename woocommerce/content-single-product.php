@@ -51,11 +51,6 @@ if ( post_password_required() ) {
 		woocommerce_template_single_price();
 
 		?>
-		
-		<!-- <div class="free-shipping" style="display: none">
-			<img style="height: 13px" src="<?php echo get_template_directory_uri(); ?>/img/shipping.svg" alt="">
-			<span style="font-size: 14px">Free shipping </span>
-		</div> -->
 
 		<?php
 

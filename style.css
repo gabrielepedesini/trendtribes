@@ -342,10 +342,15 @@ textarea {
     position: absolute;
     top: -6px;
     right: -6px;
+    opacity: 1;
+    transform: scale(100%);
+    transition: 0.3s;
 }
 
 .cart-item-count.hidden {
-    display: none;
+    opacity: 0;
+    transform: scale(50%);
+    transition: 0.3s;
 }
 
 .woocommerce-cart .cart-item-count {
@@ -472,6 +477,7 @@ textarea {
 
     .menu > ul > li > a {
         line-height: 1;
+        display: block;
     }
 
     .menu > ul > li:nth-child(1) {
@@ -550,9 +556,8 @@ textarea {
         width: 35px;
     }
 
-    .custom-logo {
-        height: 45px !important;
-        width: auto;
+    .custom-logo-link {
+        width: fit-content;
     }
 
     .menu {
@@ -586,19 +591,21 @@ textarea {
     .menu > ul {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 0px;
     }
 
     .menu > ul > li {
-        padding: 10px;
-        height: 20px;
+        padding: 8px 10px;
+        height: fit-content;
         width: fit-content;
         display: flex;
     }
 
-    .menu > ul > li:nth-child(1) {
-        padding-left: 10px;
+    .menu > ul > li > a {
+        line-height: 1;
+        display: block;
     }
+
 
     .menu-item-has-children > a:after {
         display: none;
@@ -1463,7 +1470,6 @@ input[type="range"]::-ms-thumb {
     border-radius: 5px;
     background-color: var(--white) !important;
     font-family: 'Inter', sans-serif !important;
-    cursor: pointer !important;
 }
 
 .woocommerce-ordering .orderby option {
@@ -2002,7 +2008,6 @@ select {
     border-radius: 5px;
     background-color: var(--white) !important;
     font-family: 'Inter', sans-serif !important;
-    cursor: pointer !important;
 }
 
 select option[selected="selected"] {
@@ -2086,7 +2091,7 @@ select::-webkit-select-arrow {
 }
 
 .wc-block-cart__submit-button:hover {
-    background-color: #252525;
+    background-color: #252525 !important;
 }
 
 .wc-block-components-quantity-selector__input {
@@ -2204,7 +2209,7 @@ select::-webkit-select-arrow {
     background-color: #c4c4c4 !important;
 }
 
-.wp-block-heading.has-text-align-center.with-empty-cart-icon.wc-block-cart__empty-cart__title {
+.wp-block-heading.with-empty-cart-icon.wc-block-cart__empty-cart__title {
     margin-bottom: 120px !important;
     padding-top: 60px !important;
     font-weight: 500 !important;
@@ -2226,7 +2231,7 @@ select::-webkit-select-arrow {
 
 .woocommerce-cart .wp-block-heading {
     font-size: 28px;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     margin-bottom: 30px;
 }
 
@@ -2252,6 +2257,14 @@ select::-webkit-select-arrow {
 
 .woocommerce-cart  .wc-block-grid__product-price ins {
     font-weight: 700 !important;
+}
+
+.wc-block-grid__product {
+    text-align: left !important;
+}
+
+.wc-block-grid__product-rating .star-rating, .wc-block-grid__product-rating .wc-block-grid__product-rating__stars {
+    margin: 0 !important;
 }
 
 .wc-block-components-text-input.wc-block-components-address-form__first_name,
@@ -2787,6 +2800,11 @@ flex: 1 1 40% !important;
     margin-bottom: 0px;
 }
 
+.blog article .post-text p .read-more {
+    color: #7a7a7a;
+    font-weight: 300;
+}
+
 .blog article .post-text .post-date {
     font-size: 12px !important;
     color: var(--dark-gray);
@@ -2877,7 +2895,7 @@ flex: 1 1 40% !important;
     margin-right: 20px;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     margin-top: 40px;
     margin-bottom: 60px;
 }
@@ -2924,6 +2942,8 @@ flex: 1 1 40% !important;
 .error404 .return-home-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin-top: 10px;
     margin-bottom: 80px; 
 }
@@ -2942,6 +2962,15 @@ flex: 1 1 40% !important;
 
 .error404 .return-home:hover {
     background-color: #c4c4c4;
+}
+
+.error404 .return-home-container .page-title {
+    font-size: 32px !important;
+    font-weight: 700;
+}
+
+.error404 .return-home-container p {
+    text-align: center;
 }
 
 .error404 .may-like {
@@ -3011,7 +3040,6 @@ flex: 1 1 40% !important;
     border-radius: 5px;
     background-color: var(--white) !important;
     font-family: 'Inter', sans-serif !important;
-    cursor: pointer !important;
 }
 
 .woocommerce-ordering .orderby {
@@ -3021,7 +3049,6 @@ flex: 1 1 40% !important;
     border-radius: 5px;
     background-color: var(--white) !important;
     font-family: 'Inter', sans-serif !important;
-    cursor: pointer !important;
 }
 
 .woocommerce-ordering .orderby option {
