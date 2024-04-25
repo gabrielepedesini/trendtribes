@@ -767,8 +767,6 @@ textarea {
     padding: 40px 20px;
     display: flex;
     justify-content: space-around;
-    /* background-color: #f8f8f8; */
-    /* border-radius: 5px; */
     border-top: 1px solid var(--light-gray);
     border-bottom: 1px solid var(--light-gray);
 }
@@ -781,12 +779,12 @@ textarea {
 }
 
 .shop-values img {
-    width: 35px;
-    margin-bottom: 25px;
+    width: 30px;
+    margin-bottom: 20px;
 }
 
 .shop-values h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 5px; 
     text-align: center;
