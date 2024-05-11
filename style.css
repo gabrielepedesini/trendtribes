@@ -340,11 +340,12 @@ textarea {
     font-size: 12px; 
     font-weight: 500;
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -9px;
+    right: -8px;
     opacity: 1;
     transform: scale(100%);
     transition: 0.3s;
+    border: 2px solid var(--white);
 }
 
 .cart-item-count.hidden {
@@ -871,7 +872,7 @@ textarea {
 }
 
 .review-container.dark {
-    background-color: var(--white);
+    background-color: #f7f7f7;
     color: var(--black);
     border: 1px solid #cfc8d8;
 }
@@ -2082,7 +2083,7 @@ select::-webkit-select-arrow {
     border-radius: 5px !important;
     white-space: nowrap !important;
     width: 100% !important;
-    margin-top: 15px !important;
+    margin-top: 30px !important;
     font-size: 16px;
     border: none !important;
     font-family: 'Inter', sans-serif;
@@ -2711,7 +2712,7 @@ flex: 1 1 40% !important;
     color: var(--white) !important;
     font-weight: 500 !important;
     padding: 10px 16px !important;
-    background-color: var(--dark-gray) !important;
+    background-color: var(--black) !important;
     border-radius: 5px !important;
     font-size: 16px !important;
     white-space: nowrap;
@@ -2749,8 +2750,8 @@ flex: 1 1 40% !important;
 }
 
 .wpcf7-not-valid-tip {
-    font-size: 14px;
-    margin-top: 3px;
+    font-size: 0.75em;
+    margin-top: 4px;
     color: #cc1818 ;
 }
 
