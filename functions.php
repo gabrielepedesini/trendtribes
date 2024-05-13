@@ -272,6 +272,13 @@ function custom_filter_shortcode() {
 
     // Retrieve the current URL
     $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    
+    // Check if the current URL contains "/page"
+    if (strpos($current_url, '/page') !== false) {
+        // If "/page" exists, remove everything after it
+        $current_url = substr($current_url, 0, strpos($current_url, '/page'));
+    }
+    
     // Parse the URL to get existing query parameters
     $parsed_url = parse_url($current_url);
     $query_params = isset($parsed_url['query']) ? $parsed_url['query'] : '';
@@ -601,7 +608,6 @@ function add_sizing_image_meta_box() {
 }
 add_action('add_meta_boxes', 'add_sizing_image_meta_box');
 
-// Render the content of the sizing image meta box
 // Render the content of the sizing image meta box
 function render_sizing_image_meta_box($post) {
     wp_nonce_field(basename(__FILE__), 'sizing_image_meta_box_nonce');

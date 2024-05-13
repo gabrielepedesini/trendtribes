@@ -10,7 +10,7 @@
 
     <div class="return-home-container">
         <h1 class="page-title">Ooops!</h1>
-        <p>The page you're looking for is not available.<br>Please try searching again or use the back button below.</p>
+        <p>The page you're looking for is not available.</p>
         <a href="<?php echo home_url(); ?>" class="return-home">Return Home</a>
     </div>
     
