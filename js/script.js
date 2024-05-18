@@ -74,7 +74,8 @@ function updateCartCount() {
         success: function(response) {
             if (response > 0) {
                 jQuery('.cart-item-count').removeClass('hidden');
-                jQuery('.cart-item-count').text(response);
+                document.querySelector('.cart-item-number').textContent = response.trim();
+
             } else {
                 jQuery('.cart-item-count').addClass('hidden');
             }

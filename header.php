@@ -62,7 +62,9 @@
                 </a>
                 <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-icon">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/cart.svg" alt="cart">
-                    <span class="cart-item-count hidden"></span>
+                    <div class="cart-item-count hidden">
+                        <div class="cart-item-number"></div>
+                    </div>
                 </a>
             </div>
 
