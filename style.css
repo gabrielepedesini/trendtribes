@@ -1105,6 +1105,18 @@ textarea {
     margin: 0 !important;
 }
 
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+    margin: 0 3.93% 2.992em 0;
+}
+
+.woocommerce-shop .woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+    margin: 0 3.87% 2.992em 0;
+}
+
+.woocommerce ul.products li.last, .woocommerce-page ul.products li.last {
+    margin-right: 0;
+}
+
 .type-product {
     margin-bottom: 30px !important;
 }
@@ -1150,7 +1162,7 @@ textarea {
 
 .woocommerce ul.products li.product .woocommerce-loop-category__title, .woocommerce ul.products li.product .woocommerce-loop-product__title, .woocommerce ul.products li.product h3 {
     font-size: 18px;
-  }
+}
 
 .price {
     color: var(--black) !important;
