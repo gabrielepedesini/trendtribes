@@ -1109,7 +1109,8 @@ textarea {
     margin: 0 3.93% 2.992em 0;
 }
 
-.woocommerce-shop .woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+.woocommerce-shop .woocommerce ul.products li.product, 
+.woocommerce-page ul.products li.product {
     margin: 0 3.87% 2.992em 0;
 }
 
@@ -1277,6 +1278,11 @@ textarea {
     background-color: transparent !important;
     font-weight: 300;
     color: var(--dark-gray);
+}
+
+.woocommerce-shop .woocommerce .products-filter ul.products li.product, 
+.woocommerce-page .products-filter ul.products li.product {
+    margin: 0 !important;
 }
 
 #price-type-filter-form {
