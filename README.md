@@ -18,11 +18,12 @@ A minimal, performant custom WordPress theme designed for WooCommerce to help yo
 ## Installation
 
 1. Download or clone this repository:
+   
    ```sh
    git clone https://github.com/gabrielepedesini/trendtribes.git
    ```
-2. Copy the theme folder to your WordPress `wp-content/themes/` directory.
-3. In your WordPress admin panel, navigate to **Appearance > Themes** and activate *TrendTribes*.
+3. Copy the theme folder to your WordPress `wp-content/themes/` directory.
+4. In your WordPress admin panel, navigate to **Appearance > Themes** and activate *TrendTribes*.
 
 ### Customization
 
